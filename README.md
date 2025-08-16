@@ -3,17 +3,18 @@
 ```markdown
 # 🩺 Skin Cancer Classification using EfficientNetB7
 
-This project uses **Transfer Learning (EfficientNetB7)** to classify **skin cancer images** into two categories: **Malignant (1)** and **Benign (0)**.  
-The model is trained on the Kaggle dataset and implemented in **Google Colab** with TensorFlow/Keras.  
+A deep learning project that applies **Transfer Learning (EfficientNetB7)** to classify skin cancer images into **Malignant (1)** and **Benign (0)** categories.  
+The model is trained on the Kaggle dataset and implemented in **Google Colab** using **TensorFlow/Keras**.
 
 ---
 
 ## 📂 Dataset
-Dataset used: [Skin Cancer Malignant vs Benign](https://www.kaggle.com/datasets/fanconic/skin-cancer-malignant-vs-benign)  
-- **Malignant** = Cancerous  
-- **Benign** = Non-cancerous  
+- **Source:** [Skin Cancer Malignant vs Benign](https://www.kaggle.com/datasets/fanconic/skin-cancer-malignant-vs-benign)  
+- **Classes:**
+  - **Malignant** → Cancerous (Label = 1)  
+  - **Benign** → Non-cancerous (Label = 0)  
 
-Dataset structure:
+**Dataset Structure:**
 ```
 
 data/
@@ -25,64 +26,69 @@ data/
 
 ---
 
-## ⚙️ Project Workflow
-1. **Data Loading & Preprocessing**
-   - Images resized to `224x224`
-   - Normalized pixel values `[0,1]`
-   - Labels: malignant=1, benign=0
+## ⚙️ Workflow
+### 1️⃣ Data Preprocessing
+- Images resized to **224×224**
+- Pixel values normalized to **[0,1]**
+- Labels converted to binary (0 = benign, 1 = malignant)
 
-2. **Train/Validation Split**
-   - 85% training, 15% validation
+### 2️⃣ Train/Validation Split
+- **85% Training**  
+- **15% Validation**
 
-3. **Model Architecture**
-   - Pre-trained **EfficientNetB7 (frozen base)**
-   - Global Average Pooling
-   - Dense + BatchNorm + Dropout layers
-   - Final Sigmoid output for binary classification
+### 3️⃣ Model Architecture
+- Base: **EfficientNetB7 (pre-trained, frozen)**
+- Layers:
+  - Global Average Pooling
+  - Dense (256) + BatchNorm + Dropout
+  - Dense (256) + BatchNorm
+  - Output: Sigmoid (binary classification)
 
-4. **Training**
-   - Optimizer: `Adam`
-   - Loss: `Binary Crossentropy`
-   - Metric: `AUC`
-   - Batch size: 32, Epochs: 5
+### 4️⃣ Training Setup
+- **Optimizer:** Adam  
+- **Loss:** Binary Crossentropy  
+- **Metric:** AUC  
+- **Batch Size:** 32  
+- **Epochs:** 5  
 
-5. **Prediction**
-   - Load saved model (`.h5`)
-   - Preprocess new image → Predict malignant/benign
+### 5️⃣ Prediction
+- Load the saved model (`.h5`)  
+- Preprocess new image  
+- Predict → Output: *Malignant* or *Benign*  
 
 ---
 
 ## 🚀 How to Run
 
-### 1️⃣ Clone Repository
+### 🔹 Clone Repository
 ```bash
 git clone https://github.com/yasirwali1052/Skin-Cancer-Classification-EfficientNetB7.git
 cd Skin-Cancer-Classification-EfficientNetB7
 ````
 
-### 2️⃣ Open in Google Colab
+### 🔹 Open in Google Colab
 
-Upload notebook or copy code into Colab.
+Upload the notebook or copy the code into Colab.
 
-### 3️⃣ Install Dependencies
+### 🔹 Install Dependencies
 
 ```bash
 pip install tensorflow pillow matplotlib seaborn
 ```
 
-### 4️⃣ Train Model
+### 🔹 Train Model
 
 ```python
 history = model.fit(train_ds, validation_data=val_ds, epochs=5, verbose=1)
 ```
 
-### 5️⃣ Save Model
+### 🔹 Save Model
 
 ```python
 model.save("skin_cancer_model_rgb.h5")
 ```
 
-### 6️⃣ Predict on New Image
+### 🔹 Predict on New Image
 
 ```python
 img = preprocess_image("/content/sample.jpg")
@@ -94,16 +100,11 @@ print("Malignant" if pred[0][0] > 0.5 else "Benign")
 
 ## 📊 Results
 
-* Pre-trained **EfficientNetB7** achieved high **AUC score** within few epochs.
-* Model generalizes well with transfer learning despite limited training time.
-
----
-
+✔️ Achieved high **AUC score** within a few epochs using transfer learning
+✔️ Model shows strong generalization performance
+✔️ EfficientNetB7 proves effective even with limited training time
 
 
-```
 
----
-
-👉 Do you want me to also **write the GitHub `requirements.txt` and a Colab notebook `.ipynb` setup** so you can directly push and run the repo?
+👉 Do you also want me to prepare a **`requirements.txt`** and **`notebook.ipynb`** so you can directly upload them to GitHub and make the repo fully ready-to-run?
 ```
